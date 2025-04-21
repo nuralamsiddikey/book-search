@@ -1,8 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Star } from "lucide-react";
 import Image from "next/image";
-import React, { useState } from "react";
+import React from "react";
 import { Book } from "../type";
 import { toast } from "sonner";
 
@@ -14,8 +13,7 @@ export default function BookCard({
   language = [],
   cover_i,
 }: Book) {
-  const [open, setOpen] = useState(false);
-
+  
   const imageUrl = cover_i
     ? `https://covers.openlibrary.org/b/id/${cover_i}-M.jpg`
     : "";

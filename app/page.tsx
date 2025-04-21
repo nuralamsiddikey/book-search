@@ -15,12 +15,13 @@ export default function Home() {
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
 
-
   const fetchBooks = async (query: string, pageNum: number) => {
     try {
       setLoading(true);
       const result = await fetch(
-        `${process.env.NEXT_PUBLIC_LOCAL_API_URL}?q=${encodeURIComponent(query)}&page=${pageNum}&limit=20`
+        `${process.env.NEXT_PUBLIC_LOCAL_API_URL}?q=${encodeURIComponent(
+          query
+        )}&page=${pageNum}&limit=20`
       );
       const data = await result.json();
       const newBooks = data.docs;
@@ -41,7 +42,6 @@ export default function Home() {
     }
   };
 
-
   useEffect(() => {
     const query = debouncedSearchTerm.trim() || "the";
     setPage(1);
@@ -49,7 +49,6 @@ export default function Home() {
     fetchBooks(query, 1);
   }, [debouncedSearchTerm]);
 
- 
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedSearchTerm(searchTerm);
@@ -57,10 +56,9 @@ export default function Home() {
     return () => clearTimeout(timer);
   }, [searchTerm]);
 
-  
   const observer = useRef<IntersectionObserver | null>(null);
   const lastBookElementRef = useCallback(
-    (node: any) => {
+    (node: Element | null) => {
       if (loading) return;
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver((entries) => {
@@ -77,8 +75,6 @@ export default function Home() {
     if (page === 1) return;
     fetchBooks(debouncedSearchTerm.trim() || "the", page);
   }, [page]);
-
-
 
   return (
     <div className="w-[90%]  sm:w-[80%] mx-auto mt-8">
@@ -130,8 +126,15 @@ export default function Home() {
       {!loading && books.length === 0 && (
         <div className="flex justify-center items-center w-full">
           <div className="w-[300px] h-[300px] mt-8">
-            <Image src="/not-found.jpg" alt="Not Found" width={1000} height={1000} />
-            <p className="text-center text-2xl text-muted-foreground line-clamp-2">Did not found any data!</p>
+            <Image
+              src="/not-found.jpg"
+              alt="Not Found"
+              width={1000}
+              height={1000}
+            />
+            <p className="text-center text-2xl text-muted-foreground line-clamp-2">
+              Did not found any data!
+            </p>
           </div>
         </div>
       )}
