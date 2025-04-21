@@ -41,7 +41,7 @@ export default function Home() {
     }
   };
 
- 
+
   useEffect(() => {
     const query = debouncedSearchTerm.trim() || "the";
     setPage(1);
@@ -81,15 +81,16 @@ export default function Home() {
 
 
   return (
-    <div className="w-[80%] mx-auto mt-8">
+    <div className="w-[90%]  sm:w-[80%] mx-auto mt-8">
       <Input
         type="text"
         placeholder="Search for books..."
         value={searchTerm}
+        className="w-80 py-5"
         onChange={(e) => setSearchTerm(e.target.value)}
       />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-8">
         {books.map((book: Book, index: number) => {
           if (index === books.length - 1) {
             return (
@@ -130,6 +131,7 @@ export default function Home() {
         <div className="flex justify-center items-center w-full">
           <div className="w-[300px] h-[300px] mt-8">
             <Image src="/not-found.jpg" alt="Not Found" width={1000} height={1000} />
+            <p className="text-center text-2xl text-muted-foreground line-clamp-2">Did not found any data!</p>
           </div>
         </div>
       )}

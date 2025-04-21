@@ -4,7 +4,7 @@ import { Star } from "lucide-react";
 import Image from "next/image";
 import React, { useState } from "react";
 import { Book } from "../type";
-
+import { toast } from "sonner";
 
 export default function BookCard({
   title,
@@ -25,12 +25,14 @@ export default function BookCard({
       <div className="space-y-4">
         {/* Book Cover */}
         <div className="relative w-full h-60 bg-muted rounded-lg overflow-hidden">
-          {cover_i && <Image
-            src={imageUrl}
-            alt={title}
-            fill
-            className="object-contain transition-transform duration-300 group-hover:scale-105"
-          />}
+          {cover_i && (
+            <Image
+              src={imageUrl}
+              alt={title}
+              fill
+              className="object-contain transition-transform duration-300 group-hover:scale-105"
+            />
+          )}
         </div>
 
         {/* Book Info */}
@@ -70,10 +72,21 @@ export default function BookCard({
 
       {/* More Details */}
       <div className="pt-4">
-        <Button variant="outline" className="w-full" onClick={() => setOpen(true)}>
+        <Button
+          variant="outline"
+          className="w-full cursor-pointer"
+          onClick={() =>
+            toast("Details is not mandatory", {
+              description: "This feature will come later",
+              action: {
+                label: "Undo",
+                onClick: () => console.log("Undo"),
+              },
+            })
+          }
+        >
           View Details
         </Button>
-        {/* <ProductDetailsDialog open={open} setOpen={setOpen} book={{ title, author_name, first_publish_year, edition_count, language, cover_i }} /> */}
       </div>
     </Card>
   );
